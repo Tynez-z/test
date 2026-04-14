@@ -1,4 +1,4 @@
 Data diagram:
 
-![Data Diagram](docs/data.png)
+![Data Diagram](../../docs/data.png)
 

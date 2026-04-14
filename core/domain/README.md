@@ -1,4 +1,4 @@
 Domain diagram:
 
-![Domain Diagram](docs/domain.png)
+![Domain Diagram](../../docs/domain.png)
 

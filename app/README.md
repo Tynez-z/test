@@ -1,4 +1,4 @@
 App diagram:
 
-![App Diagram](docs/app.png)
+![App Diagram](../docs/app.png)
 

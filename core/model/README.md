@@ -1,4 +1,4 @@
 Model diagram:
 
-![Model Diagram](docs/model.png)
+![Model Diagram](../../docs/model.png)
 

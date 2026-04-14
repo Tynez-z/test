@@ -1,4 +1,3 @@
 Common diagram:
 
-![Common Diagram](docs/common.png)
-
+![Common Diagram](../../docs/common.png)

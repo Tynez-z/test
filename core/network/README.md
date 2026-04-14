@@ -1,4 +1,4 @@
 Network diagram:
 
-![Network Diagram](docs/network.png)
+![Network Diagram](../../docs/network.png)
 
