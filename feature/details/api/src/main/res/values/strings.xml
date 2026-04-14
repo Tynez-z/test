@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="feature_details_api_top_app_bar_title">GIF Details</string>
+    <string name="feature_details_api_back">Back</string>
+    <string name="feature_details_api_by">By</string>
+    <string name="feature_details_api_imported">Imported</string>
+    <string name="feature_details_api_source">Source</string>
+    <string name="feature_details_api_retry">Retry</string>
+</resources>
