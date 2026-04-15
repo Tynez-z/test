@@ -1,9 +1,9 @@
 package com.android.testapp.core.data.di
 
+import com.android.testapp.core.common.network.NetworkState
 import com.android.testapp.core.data.repository.GifRepository
 import com.android.testapp.core.data.repository.GifRepositoryImpl
 import com.android.testapp.core.data.util.ConnectivityManagerNetworkState
-import com.android.testapp.core.data.util.NetworkState
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

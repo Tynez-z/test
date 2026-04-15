@@ -65,7 +65,7 @@ GifApp, MainActivity, AppAplication. App-level controlled navigation via GifAppS
   </tr>
   <tr>
    <td>core:common</td>
-   <td>Common classes shared between modules - AppError, DataResult, DI (provide Dispatcher (IO / Default) through Hilt).</td>
+   <td>Common classes shared between modules - AppError, DataResult, DI (provide Dispatcher (IO / Default) through Hilt, NetworkState - interface).</td>
   </tr>
 <tr>
    <td>core:navigation</td>

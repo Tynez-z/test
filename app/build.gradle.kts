@@ -47,7 +47,6 @@ dependencies {
     implementation(projects.feature.details.api)
     implementation(projects.feature.details.impl)
     implementation(projects.core.common)
-    implementation(projects.core.data)
     implementation(projects.core.model)
 
 

@@ -9,6 +9,7 @@ import android.net.NetworkRequest.Builder
 import androidx.core.content.getSystemService
 import com.android.testapp.core.common.network.AppDispatchers.IO
 import com.android.testapp.core.common.network.Dispatcher
+import com.android.testapp.core.common.network.NetworkState
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.channels.awaitClose
@@ -18,7 +19,7 @@ import kotlinx.coroutines.flow.conflate
 import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
-class ConnectivityManagerNetworkState @Inject constructor(
+internal class ConnectivityManagerNetworkState @Inject constructor(
     @ApplicationContext private val context: Context,
     @Dispatcher(IO) private val ioDispatcher: CoroutineDispatcher,
 ) : NetworkState {

@@ -3,7 +3,7 @@ package com.android.testapp
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import com.android.testapp.core.data.util.NetworkState
+import com.android.testapp.core.common.network.NetworkState
 import com.android.testapp.core.navigation.NavigationState
 import com.android.testapp.core.navigation.rememberNavigationState
 import com.android.testapp.feature.search.api.navigation.SearchNavKey

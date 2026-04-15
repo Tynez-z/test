@@ -1,4 +1,4 @@
-package com.android.testapp.core.data.util
+package com.android.testapp.core.common.network
 
 import kotlinx.coroutines.flow.Flow
 
