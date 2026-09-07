@@ -1,5 +1,6 @@
 package com.android.testapp.core.data
 
+import com.android.testapp.core.common.AppError
 import com.android.testapp.core.common.DataResult
 import com.android.testapp.core.data.repository.GifRepositoryImpl
 import com.android.testapp.core.network.model.gifDetails.GifDetailResponse
@@ -62,6 +63,7 @@ class GifRepositoryTests {
         val result = repository.getGifById("invalid_id")
 
         assertTrue(result is DataResult.Failure)
+        assertEquals(AppError.Network, (result as DataResult.Failure).error)
     }
 
     @Test

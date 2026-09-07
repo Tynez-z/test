@@ -14,6 +14,7 @@ import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
+import com.android.testapp.core.common.AppError
 import com.android.testapp.core.model.Gif
 import com.android.testapp.core.model.GifImages
 import com.android.testapp.core.model.ImageData
@@ -124,6 +125,7 @@ private fun SearchContentErrorPreview() {
             onSearchQueryChanged = {},
         )
         ErrorContent(
+            error = AppError.ServerError,
             onRetry = {},
             modifier = Modifier.fillMaxSize(),
         )

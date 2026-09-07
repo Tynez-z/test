@@ -1,6 +1,9 @@
 package com.android.testapp.core.data
 
 import androidx.paging.PagingSource
+import com.android.testapp.core.common.AppError
+import com.android.testapp.core.common.AppException
+import com.android.testapp.core.common.toAppError
 import com.android.testapp.core.data.paging.GifPagingSource
 import com.android.testapp.core.network.model.searchGif.GifDto
 import com.android.testapp.core.network.model.searchGif.GifImagesDto
@@ -11,8 +14,8 @@ import com.android.testapp.core.network.model.searchGif.SearchResponse
 import com.android.testapp.core.network.service.ApiService
 import io.mockk.coEvery
 import io.mockk.mockk
-import junit.framework.Assert.assertEquals
 import kotlinx.coroutines.test.runTest
+import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -62,7 +65,8 @@ class Pagination {
 
         assertTrue(result is PagingSource.LoadResult.Error)
         result as PagingSource.LoadResult.Error
-        assertTrue(result.throwable is IOException)
+        assertTrue(result.throwable is AppException)
+        assertEquals(AppError.Network, result.throwable.toAppError())
     }
 
     @Test

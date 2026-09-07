@@ -40,6 +40,7 @@ class GifDetailsViewModel @AssistedInject constructor(
                 is DataResult.Success -> {
                     _uiState.value = GifDetailsUiState.Success(result.data)
                 }
+
                 is DataResult.Failure -> {
                     _uiState.value = GifDetailsUiState.Error(result.error)
                 }

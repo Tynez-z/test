@@ -7,7 +7,7 @@ import retrofit2.HttpException
 import java.io.IOException
 import kotlin.coroutines.cancellation.CancellationException
 
-suspend fun <T> safeApiCall(apiCall: suspend () -> T, ): DataResult<T> =
+suspend fun <T> safeApiCall(apiCall: suspend () -> T): DataResult<T> =
     try {
         DataResult.Success(apiCall())
     } catch (e: CancellationException) {

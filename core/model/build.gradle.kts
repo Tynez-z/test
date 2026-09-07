@@ -3,5 +3,6 @@ plugins {
 }
 
 dependencies {
-
+    //for annotations @Stable, @Immutable
+    implementation(libs.androidx.compose.runtime)
 }

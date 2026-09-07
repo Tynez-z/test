@@ -9,15 +9,12 @@ import com.android.testapp.core.domain.SearchGifsUseCase
 import com.android.testapp.core.model.Gif
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.flowOf
 import javax.inject.Inject
+import kotlin.time.Duration.Companion.milliseconds
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
@@ -27,7 +24,7 @@ class SearchViewModel @Inject constructor(
     val searchQuery = savedStateHandle.getStateFlow(key = SEARCH_QUERY, initialValue = "")
 
     val gifsPagingData: Flow<PagingData<Gif>> = searchQuery
-        .debounce(350)
+        .debounce(350.milliseconds)
         .filter { it.isNotBlank() }
         .distinctUntilChanged()
         .flatMapLatest { searchQuery ->

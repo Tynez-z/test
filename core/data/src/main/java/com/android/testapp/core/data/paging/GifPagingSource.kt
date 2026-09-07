@@ -2,11 +2,12 @@ package com.android.testapp.core.data.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import com.android.testapp.core.common.AppException
+import com.android.testapp.core.common.DataResult
 import com.android.testapp.core.data.mapper.toDomain
 import com.android.testapp.core.model.Gif
 import com.android.testapp.core.network.service.ApiService
-import java.io.IOException
-import kotlin.coroutines.cancellation.CancellationException
+import com.android.testapp.core.network.util.safeApiCall
 
 class GifPagingSource(
     private val api: ApiService,
@@ -34,33 +35,33 @@ class GifPagingSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Gif> {
         val offset = params.key ?: 0 // how many items to skip from start
         val limit = params.loadSize // how many items to fetch
-        return try {
-            val response = api.searchGifs(query = query, limit = limit, offset = offset)
 
-            val gifs = response.data
-                .map { it.toDomain() }
-                .filter { seenIds.add(it.id) }
+        return when (
+            val result = safeApiCall {
+                api.searchGifs(query = query, limit = limit, offset = offset)
+            }
+        ) {
+            is DataResult.Success -> {
+                val response = result.data
 
-            val totalCount = response.pagination.totalCount
+                val gifs = response.data
+                    .map { it.toDomain() }
+                    .filter { seenIds.add(it.id) }
 
-            val nextOffset = offset + limit
+                val totalCount = response.pagination.totalCount
+                val nextOffset = offset + limit
 
-            // 4999 giphy api limitation
-            LoadResult.Page(
-                data = gifs,
-                prevKey = if (offset == 0) null else offset - limit,
-                nextKey = if (nextOffset >= totalCount || nextOffset > 4999) {
-                    null
-                } else {
-                    nextOffset
-                },
-            )
-        } catch (e: CancellationException) {
-            throw e
-        } catch (e: IOException) {
-            LoadResult.Error(e)
-        } catch (e: Exception) {
-            LoadResult.Error(e)
+                LoadResult.Page(
+                    data = gifs,
+                    prevKey = if (offset == 0) null else offset - limit,
+                    nextKey = if (nextOffset >= totalCount || nextOffset > 4999) { // 4999 giphy api limitation
+                        null
+                    } else {
+                        nextOffset
+                    }
+                )
+            }
+            is DataResult.Failure -> LoadResult.Error(AppException(result.error))
         }
     }
 }

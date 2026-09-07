@@ -13,6 +13,8 @@ import androidx.compose.ui.test.performClick
 import androidx.paging.PagingData
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.android.testapp.core.common.AppError
+import com.android.testapp.core.common.asMessage
 import com.android.testapp.core.model.Gif
 import com.android.testapp.core.model.GifImages
 import com.android.testapp.core.model.ImageData
@@ -160,9 +162,9 @@ class SearchScreenTest {
     @Test
     fun errorContentRetryButtonIsDisplayed() {
         composeTestRule.setContent {
-            ErrorContent(onRetry = {})
+            ErrorContent(error = AppError.Network, onRetry = {})
         }
-        composeTestRule.onNodeWithText("Something went wrong").assertIsDisplayed()
+        composeTestRule.onNodeWithText(AppError.Network.asMessage()).assertIsDisplayed()
         composeTestRule.onNodeWithText("Retry").assertIsDisplayed()
     }
 
@@ -170,7 +172,7 @@ class SearchScreenTest {
     fun errorContentRetryButtonCallsOnRetry() {
         var retryCalled = false
         composeTestRule.setContent {
-            ErrorContent(onRetry = { retryCalled = true })
+            ErrorContent(error = AppError.Network, onRetry = { retryCalled = true })
         }
         composeTestRule.onNodeWithText("Retry").performClick()
         assert(retryCalled)
@@ -180,7 +182,7 @@ class SearchScreenTest {
     fun paginationErrorItemRetryButtonCallsOnRetry() {
         var retryCalled = false
         composeTestRule.setContent {
-            PaginationErrorItem(onRetry = { retryCalled = true })
+            PaginationErrorItem(error = AppError.Network, onRetry = { retryCalled = true })
         }
         composeTestRule.onNodeWithText("Retry").performClick()
         assert(retryCalled)

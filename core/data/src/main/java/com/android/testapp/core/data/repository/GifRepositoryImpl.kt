@@ -7,7 +7,6 @@ import com.android.testapp.core.common.DataResult
 import com.android.testapp.core.data.mapper.toDomain
 import com.android.testapp.core.data.paging.GifPagingSource
 import com.android.testapp.core.model.Gif
-import com.android.testapp.core.network.BuildConfig
 import com.android.testapp.core.network.service.ApiService
 import com.android.testapp.core.network.util.safeApiCall
 import kotlinx.coroutines.flow.Flow
@@ -23,12 +22,8 @@ internal class GifRepositoryImpl @Inject constructor(
                 enablePlaceholders = false
             ),
             pagingSourceFactory = {
-                GifPagingSource(
-                    api = api,
-                    query = query
-                )
-            })
-            .flow
+                GifPagingSource(api = api, query = query)
+            }).flow
     }
 
     override suspend fun getGifById(gifId: String): DataResult<Gif> =

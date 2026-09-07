@@ -25,6 +25,7 @@ import androidx.paging.compose.itemKey
 import coil3.compose.AsyncImage
 import coil3.request.CachePolicy
 import coil3.request.ImageRequest
+import com.android.testapp.core.common.toAppError
 import com.android.testapp.core.model.Gif
 import com.android.testapp.feature.search.impl.aspectRatio
 import com.android.testapp.feature.search.impl.selectImageUrl
@@ -33,7 +34,7 @@ import com.android.testapp.feature.search.impl.selectImageUrl
 internal fun GifGrid(
     pagingItems: LazyPagingItems<Gif>,
     onGifClick: (String) -> Unit,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     LazyVerticalStaggeredGrid(
         columns = StaggeredGridCells.Fixed(2),
@@ -68,8 +69,10 @@ internal fun GifGrid(
         }
 
         if (pagingItems.loadState.append is LoadState.Error) {
+            val throwable = (pagingItems.loadState.append as LoadState.Error).error
+
             item(span = StaggeredGridItemSpan.FullLine) {
-                PaginationErrorItem(onRetry = pagingItems::retry)
+                PaginationErrorItem(error = throwable.toAppError(), onRetry = pagingItems::retry)
             }
         }
     }
@@ -79,7 +82,7 @@ internal fun GifGrid(
 internal fun GifGridItem(
     gif: Gif,
     onClick: () -> Unit,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     val imageUrl = selectImageUrl(gif)
     val context = LocalContext.current

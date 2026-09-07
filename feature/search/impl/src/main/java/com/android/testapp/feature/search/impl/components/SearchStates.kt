@@ -23,6 +23,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
+import com.android.testapp.core.common.AppError
+import com.android.testapp.core.common.asMessage
+import com.android.testapp.core.common.toAppError
 import com.android.testapp.core.model.Gif
 import com.android.testapp.feature.search.api.R as searchR
 
@@ -31,7 +34,7 @@ internal fun SearchContent(
     query: String,
     pagingItems: LazyPagingItems<Gif>,
     onGifClick: (String) -> Unit,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     Box(modifier = modifier) {
         when {
@@ -46,7 +49,9 @@ internal fun SearchContent(
             }
 
             pagingItems.loadState.refresh is LoadState.Error -> {
+                val throwable = (pagingItems.loadState.refresh as LoadState.Error).error
                 ErrorContent(
+                    error = throwable.toAppError(),
                     onRetry = pagingItems::retry,
                     modifier = Modifier.fillMaxSize(),
                 )
@@ -73,7 +78,7 @@ internal fun SearchContent(
 
 @Composable
 internal fun EmptySearchPrompt(
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     Box(
         modifier = modifier,
@@ -90,8 +95,9 @@ internal fun EmptySearchPrompt(
 
 @Composable
 internal fun ErrorContent(
+    error: AppError,
     onRetry: () -> Unit,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     Box(
         modifier = modifier,
@@ -101,7 +107,7 @@ internal fun ErrorContent(
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Text(
-                text = stringResource(searchR.string.feature_search_api_something_went_wrong),
+                text = error.asMessage(),
                 style = MaterialTheme.typography.bodyLarge,
             )
             Spacer(modifier = Modifier.height(16.dp))
@@ -132,8 +138,9 @@ internal fun NoResultsContent(
 
 @Composable
 internal fun PaginationErrorItem(
+    error: AppError,
     onRetry: () -> Unit,
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     Row(
         modifier = modifier
@@ -143,7 +150,7 @@ internal fun PaginationErrorItem(
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(
-            text = stringResource(searchR.string.feature_search_api_failed_load_more),
+            text = error.asMessage(),
             style = MaterialTheme.typography.bodyMedium,
         )
         Spacer(modifier = Modifier.width(8.dp))

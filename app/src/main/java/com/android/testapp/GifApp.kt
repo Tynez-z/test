@@ -21,7 +21,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
 import androidx.navigation3.runtime.entryProvider
+import androidx.navigation3.runtime.rememberSaveableStateHolderNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import com.android.testapp.core.navigation.Navigator
 import com.android.testapp.feature.details.impl.navigation.gifDetailsEntry
@@ -66,6 +68,10 @@ fun GifApp(
                 ),
         ) {
             NavDisplay(
+                entryDecorators = listOf(
+                    rememberSaveableStateHolderNavEntryDecorator(),
+                    rememberViewModelStoreNavEntryDecorator()
+                ),
                 backStack = appState.navigationState.backStack,
                 onBack = { navigator.navigateBack() },
                 entryProvider = entryProvider {

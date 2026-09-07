@@ -37,7 +37,6 @@ internal fun GifDetailsContent(
         imageUrl?.let { url ->
             AsyncImage(
                 model = url,
-
                 contentDescription = gif.title,
                 modifier = Modifier
                     .fillMaxWidth()

@@ -15,7 +15,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.android.testapp.core.common.AppError
-import com.android.testapp.feature.details.impl.asMessage
+import com.android.testapp.core.common.asMessage
 import com.android.testapp.feature.details.api.R as detailR
 
 @Composable
